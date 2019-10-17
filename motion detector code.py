@@ -22,7 +22,7 @@ while True:
         first_frame=gray
         continue
     # calculate change in intensity of pixels when motion is there.
-    delta_frame=cv2.absdiff(first_frame,gray,)
+    delta_frame=cv2.absdiff(first_frame,gray)
     thresh_frame=cv2.threshold(delta_frame,30,255,cv2.THRESH_BINARY)[1]
     thresh_frame=cv2.dilate(thresh_frame,None,iterations=2)
 
@@ -61,7 +61,7 @@ print(times)
 
 #create dataframe for storing start time and end time of motion of an object in the frame.
 for i in range(0,len(times),2):
-    df=df.append({"Start":times[i],"End":times[1]},ignore_index=True)
+    df=df.append({"Start":times[i],"End":times[i+1]},ignore_index=True)
     #convert dataframe into csv file for better display.
     df.to_csv("Times.csv")
 #release the video adapter
